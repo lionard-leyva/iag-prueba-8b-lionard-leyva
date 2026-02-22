@@ -1,4 +1,4 @@
-package com.iag.smartpark.domain;
+package com.iag.smartpark.application;
 
 import java.math.BigDecimal;
 import java.time.Duration;
@@ -8,6 +8,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.iag.smartpark.domain.ParkingSession;
+import com.iag.smartpark.domain.ParkingSpot;
+import com.iag.smartpark.domain.PricingService;
+import lombok.Getter;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -20,7 +24,9 @@ public class ParkingService {
     private static final int TOTAL_SPOTS = 100;
     private static final int ELECTRIC_SPOTS = 20;
 
+    @Getter
     private int occupiedSpots = 0;
+    @Getter
     private int occupiedElectricSpots = 0;
 
     public ParkingService() {
@@ -143,14 +149,10 @@ public class ParkingService {
         return activeSessions.containsKey(plate);
     }
 
-    ParkingSession getActiveSession(String plate) {
+    public ParkingSession getActiveSession(String plate) {
         return activeSessions.get(plate);
     }
 
-    void replaceSessionForTest(String plate, ParkingSession session) {  activeSessions.put(plate, session);}
-
-    int getOccupiedSpots() { return occupiedSpots; }
-
-    int getOccupiedElectricSpots() { return occupiedElectricSpots; }
+    public void replaceSessionForTest(String plate, ParkingSession session) {  activeSessions.put(plate, session);}
 
 }

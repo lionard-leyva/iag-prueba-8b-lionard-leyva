@@ -1,5 +1,6 @@
 package com.iag.smartpark.domain;
 
+import com.iag.smartpark.application.ParkingService;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

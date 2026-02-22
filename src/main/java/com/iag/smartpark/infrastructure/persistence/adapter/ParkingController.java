@@ -1,6 +1,6 @@
-package com.iag.smartpark.api;
+package com.iag.smartpark.infrastructure.persistence.adapter;
 
-import com.iag.smartpark.domain.ParkingService;
+import com.iag.smartpark.application.ParkingService;
 import com.iag.smartpark.domain.ParkingSession;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
