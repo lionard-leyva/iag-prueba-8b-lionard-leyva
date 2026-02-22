@@ -25,6 +25,12 @@ class PricingServiceTest {
     }
 
     @Test
+    void shouldCharge950ForFourHours() {
+        BigDecimal cost = pricingService.calculate(Duration.ofHours(4), false);
+        assertThat(cost).isEqualByComparingTo("9.50");
+    }
+
+    @Test
     void shouldChargeForFractionAsFullHour() {
         BigDecimal cost = pricingService.calculate(Duration.ofHours(3).plusMinutes(1), false);
         assertThat(cost).isEqualByComparingTo("9.50");
