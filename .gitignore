@@ -1,6 +1,9 @@
+# IDE
+.idea/
+*.iml
+
+# Maven
 target/
 
-mvnw
-mvnw.cmd
-
-.vscode
+# OS
+.DS_Store
