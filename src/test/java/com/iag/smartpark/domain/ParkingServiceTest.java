@@ -99,4 +99,36 @@ public class ParkingServiceTest {
         assertThat(parkingService.getOccupiedSpots()).isEqualTo(0);
     }
 
+    @Test
+    void shouldAssignFreeSpotOnOccupation() {
+
+        ParkingService service = new ParkingService();
+
+        service.registerEntry("ABC123", false);
+
+        service.assignSpot("ABC123");
+
+        ParkingSpot spot = service.findSpotByPlate("ABC123");
+
+        assertThat(spot).isNotNull();
+        assertThat(spot.getOccupiedBy()).isEqualTo("ABC123");
+    }
+
+    @Test
+    void shouldAllowChangingSpot() {
+
+        ParkingService service = new ParkingService();
+
+        service.registerEntry("ABC123", false);
+        service.assignSpot("ABC123");
+
+        ParkingSpot first = service.findSpotByPlate("ABC123");
+
+        service.changeSpot("ABC123");
+
+        ParkingSpot second = service.findSpotByPlate("ABC123");
+
+        assertThat(second.getId()).isNotEqualTo(first.getId());
+    }
+
 }
