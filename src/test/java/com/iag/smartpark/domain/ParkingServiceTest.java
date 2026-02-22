@@ -36,4 +36,33 @@ public class ParkingServiceTest {
         assertThat(accepted).isFalse();
     }
 
+    @Test
+    void shouldCreateSessionOnEntry() {
+
+        parkingService.registerEntry("ABC123", false);
+        assertThat(parkingService.hasActiveSession("ABC123")).isTrue();
+    }
+
+    @Test
+    void shouldRejectIfVehicleAlreadyInside() {
+
+        parkingService.registerEntry("ABC123", false);
+        boolean accepted = parkingService.registerEntry("ABC123", false);
+        assertThat(accepted).isFalse();
+    }
+
+    @Test
+    void shouldNotIncreaseOccupiedSpotsWhenDuplicateRejected() {
+
+        parkingService.registerEntry("ABC123", false);
+        parkingService.registerEntry("ABC123", false);
+        assertThat(parkingService.getOccupiedSpots()).isEqualTo(1);
+    }
+
+    @Test
+    void shouldIncreaseElectricCounterOnlyForElectricVehicles() {
+
+        parkingService.registerEntry("ELEC1", true);
+        assertThat(parkingService.getOccupiedElectricSpots()).isEqualTo(1);
+    }
 }
