@@ -1,5 +1,6 @@
 package com.iag.smartpark.domain;
 
+import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -62,7 +63,8 @@ public class ParkingService {
 
         Duration duration = Duration.between(session.getEntryTime(), exitTime);
 
-        pricingService.calculate(duration, session.isElectric());
+        BigDecimal cost = pricingService.calculate(duration, session.isElectric());
+        session.setTotalCost(cost);
 
         activeSessions.remove(plate);
 
@@ -73,6 +75,14 @@ public class ParkingService {
         }
 
         return session;
+    }
+
+    ParkingSession getActiveSession(String plate) {
+        return activeSessions.get(plate);
+    }
+
+    void replaceSessionForTest(String plate, ParkingSession session) {
+        activeSessions.put(plate, session);
     }
 
     int getOccupiedSpots() { return occupiedSpots; }
