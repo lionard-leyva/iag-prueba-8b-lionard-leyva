@@ -77,4 +77,25 @@ public class ParkingServiceTest {
         assertThat(session.isActive()).isFalse();
         assertThat(parkingService.hasActiveSession("ABC123")).isFalse();
     }
+
+    @Test
+    void shouldCalculateAndStoreTotalCostOnExit() {
+
+        parkingService.registerEntry("ABC123", false);
+
+
+        ParkingSession session = parkingService.getActiveSession("ABC123");
+        session = new ParkingSession(
+                session.getPlate(),
+                session.isElectric(),
+                session.getEntryTime().minusHours(1)
+        );
+
+        parkingService.replaceSessionForTest("ABC123", session);
+
+        ParkingSession closed = parkingService.registerExit("ABC123");
+
+        assertThat(closed.getTotalCost())
+                .isEqualByComparingTo("2.50");
+    }
 }
