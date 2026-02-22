@@ -83,7 +83,6 @@ public class ParkingServiceTest {
 
         parkingService.registerEntry("ABC123", false);
 
-
         ParkingSession session = parkingService.getActiveSession("ABC123");
         session = new ParkingSession(
                 session.getPlate(),
@@ -95,7 +94,9 @@ public class ParkingServiceTest {
 
         ParkingSession closed = parkingService.registerExit("ABC123");
 
-        assertThat(closed.getTotalCost())
-                .isEqualByComparingTo("2.50");
+        assertThat(closed.getTotalCost()).isEqualByComparingTo("2.50");
+        assertThat(parkingService.hasActiveSession("ABC123")).isFalse();
+        assertThat(parkingService.getOccupiedSpots()).isEqualTo(0);
     }
+
 }
