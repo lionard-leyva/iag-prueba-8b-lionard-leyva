@@ -65,4 +65,16 @@ public class ParkingServiceTest {
         parkingService.registerEntry("ELEC1", true);
         assertThat(parkingService.getOccupiedElectricSpots()).isEqualTo(1);
     }
+
+    @Test
+    void shouldCloseSessionAndReturnItOnExit() {
+
+        parkingService.registerEntry("ABC123", false);
+
+        ParkingSession session = parkingService.registerExit("ABC123");
+
+        assertThat(session).isNotNull();
+        assertThat(session.isActive()).isFalse();
+        assertThat(parkingService.hasActiveSession("ABC123")).isFalse();
+    }
 }
