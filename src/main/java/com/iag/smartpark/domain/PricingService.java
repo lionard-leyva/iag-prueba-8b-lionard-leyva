@@ -11,11 +11,11 @@ public class PricingService {
     private static final long STANDARD_HOURS_LIMIT = 3;
 
     public BigDecimal calculate(Duration duration, boolean electric) {
-        long hours = (long) Math.ceil(duration.toMinutes() / 60.0);
-
         if (duration.isZero() || duration.isNegative()) {
             throw new IllegalArgumentException("Duration must be positive");
         }
+
+        long hours = Math.max(1, (long) Math.ceil(duration.toMinutes() / 60.0));
 
         long standardHours = Math.min(hours, STANDARD_HOURS_LIMIT);
         long extraHours = Math.max(0, hours - STANDARD_HOURS_LIMIT);
