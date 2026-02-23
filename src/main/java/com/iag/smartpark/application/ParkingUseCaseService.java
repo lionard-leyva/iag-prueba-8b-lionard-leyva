@@ -86,10 +86,12 @@ public class ParkingUseCaseService {
                 .orElseThrow(() -> new IllegalArgumentException("Vehicle not inside"));
 
         ParkingSpot current = spotRepository.findById(session.getAssignedSpot().getId()).orElseThrow();
+
+        ParkingSpot next = findAvailableSpot(session.isElectric());
+
         current.free();
         spotRepository.save(current);
 
-        ParkingSpot next = findAvailableSpot(session.isElectric());
         session.changeSpot(next);
         next.occupy(plate);
         spotRepository.save(next);

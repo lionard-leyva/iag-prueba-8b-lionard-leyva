@@ -84,10 +84,14 @@ class ParkingUseCaseServiceTest {
     void shouldChangeSpotWhenVehicleIsParked() {
         service.registerEntry("ABC123", false);
         service.assignSpot("ABC123");
+        Integer firstSpotId = spotRepository.findByOccupiedBy("ABC123")
+                .map(ParkingSpotEntity::getId)
+                .orElseThrow();
 
         service.changeSpot("ABC123");
 
         ParkingSpotEntity currentSpot = spotRepository.findByOccupiedBy("ABC123").orElseThrow();
+        assertThat(currentSpot.getId()).isNotEqualTo(firstSpotId);
         assertThat(currentSpot.getStatus()).isEqualTo(SlotStatus.OCCUPIED);
         assertThat(currentSpot.getOccupiedBy()).isEqualTo("ABC123");
         assertThat(sessionRepository.findByLicensePlateAndStatus("ABC123", SessionStatus.PARKED)).isPresent();
