@@ -3,7 +3,7 @@ package com.iag.smartpark.domain;
 import java.math.BigDecimal;
 import java.time.Duration;
 
-public class PricingService {
+public class ParkingRateCalculator {
 
     private static final BigDecimal RATE_STANDARD = new BigDecimal("2.50");
     private static final BigDecimal RATE_EXTRA = new BigDecimal("2.00");
