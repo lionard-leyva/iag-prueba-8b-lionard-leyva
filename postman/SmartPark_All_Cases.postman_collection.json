@@ -1,0 +1,399 @@
+{
+  "info": {
+    "_postman_id": "f7f27a96-7f07-4ae2-a8e8-9e7a65c6f0f1",
+    "name": "SmartPark - All Cases",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Business Rules",
+      "item": [
+        {
+          "name": "Entry - Basic (201)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"plate\": \"BASIC1\",\n  \"electric\": false\n}"
+            },
+            "url": "{{baseUrl}}/parking/entries"
+          }
+        },
+        {
+          "name": "Entry - Duplicate (409)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"plate\": \"BASIC1\",\n  \"electric\": false\n}"
+            },
+            "url": "{{baseUrl}}/parking/entries"
+          }
+        },
+        {
+          "name": "Occupation - Basic (200)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"plate\": \"BASIC1\"\n}"
+            },
+            "url": "{{baseUrl}}/parking/occupations"
+          }
+        },
+        {
+          "name": "Exit - Basic (200, cost ~2.50)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"plate\": \"BASIC1\"\n}"
+            },
+            "url": "{{baseUrl}}/parking/exits"
+          }
+        },
+        {
+          "name": "Exit - Already Out (404)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"plate\": \"BASIC1\"\n}"
+            },
+            "url": "{{baseUrl}}/parking/exits"
+          }
+        },
+        {
+          "name": "Exit - Not Inside (404)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"plate\": \"NOPE1\"\n}"
+            },
+            "url": "{{baseUrl}}/parking/exits"
+          }
+        },
+        {
+          "name": "Change Spot Flow - Entry (201)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"plate\": \"CHG1\",\n  \"electric\": false\n}"
+            },
+            "url": "{{baseUrl}}/parking/entries"
+          }
+        },
+        {
+          "name": "Change Spot Flow - Occupation (200)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"plate\": \"CHG1\"\n}"
+            },
+            "url": "{{baseUrl}}/parking/occupations"
+          }
+        },
+        {
+          "name": "Change Spot Flow - Patch (200)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"plate\": \"CHG1\"\n}"
+            },
+            "url": "{{baseUrl}}/parking/occupations"
+          }
+        },
+        {
+          "name": "Electric Flow - Entry (201)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"plate\": \"ELEC_EDGE1\",\n  \"electric\": true\n}"
+            },
+            "url": "{{baseUrl}}/parking/entries"
+          }
+        },
+        {
+          "name": "Electric Flow - Occupation (200)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"plate\": \"ELEC_EDGE1\"\n}"
+            },
+            "url": "{{baseUrl}}/parking/occupations"
+          }
+        },
+        {
+          "name": "Electric Flow - Exit (200, cost ~6.00)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"plate\": \"ELEC_EDGE1\"\n}"
+            },
+            "url": "{{baseUrl}}/parking/exits"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Validation Rules",
+      "item": [
+        {
+          "name": "Entries - plate empty (400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"plate\": \"\",\n  \"electric\": false\n}"
+            },
+            "url": "{{baseUrl}}/parking/entries"
+          }
+        },
+        {
+          "name": "Entries - plate spaces (400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"plate\": \"   \",\n  \"electric\": false\n}"
+            },
+            "url": "{{baseUrl}}/parking/entries"
+          }
+        },
+        {
+          "name": "Entries - plate null (400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"plate\": null,\n  \"electric\": false\n}"
+            },
+            "url": "{{baseUrl}}/parking/entries"
+          }
+        },
+        {
+          "name": "Entries - plate missing (400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"electric\": false\n}"
+            },
+            "url": "{{baseUrl}}/parking/entries"
+          }
+        },
+        {
+          "name": "Entries - empty body (400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            },
+            "url": "{{baseUrl}}/parking/entries"
+          }
+        },
+        {
+          "name": "Occupations - plate empty (400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"plate\": \"\"\n}"
+            },
+            "url": "{{baseUrl}}/parking/occupations"
+          }
+        },
+        {
+          "name": "Occupations - plate null (400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"plate\": null\n}"
+            },
+            "url": "{{baseUrl}}/parking/occupations"
+          }
+        },
+        {
+          "name": "Patch Occupations - plate empty (400)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"plate\": \"\"\n}"
+            },
+            "url": "{{baseUrl}}/parking/occupations"
+          }
+        },
+        {
+          "name": "Exits - plate empty (400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"plate\": \"\"\n}"
+            },
+            "url": "{{baseUrl}}/parking/exits"
+          }
+        },
+        {
+          "name": "Exits - plate missing (400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            },
+            "url": "{{baseUrl}}/parking/exits"
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    }
+  ]
+}
