@@ -10,6 +10,7 @@ import com.iag.smartpark.infrastructure.persistence.repository.ParkingSessionRep
 import com.iag.smartpark.infrastructure.persistence.repository.ParkingSpotRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collection;
 import java.util.Optional;
 
 @Repository
@@ -34,13 +35,18 @@ public class JpaParkingSessionRepositoryAdapter implements ParkingSessionReposit
     }
 
     @Override
-    public long countByStatus(SessionStatus status) {
-        return sessionRepository.countByStatus(status);
+    public boolean existsByLicensePlateAndStatusIn(String plate, Collection<SessionStatus> statuses) {
+        return sessionRepository.existsByLicensePlateAndStatusIn(plate, statuses);
     }
 
     @Override
-    public long countByStatusAndElectric(SessionStatus status, boolean electric) {
-        return sessionRepository.countByStatusAndElectric(status, electric);
+    public long countByStatusIn(Collection<SessionStatus> statuses) {
+        return sessionRepository.countByStatusIn(statuses);
+    }
+
+    @Override
+    public long countByStatusInAndElectric(Collection<SessionStatus> statuses, boolean electric) {
+        return sessionRepository.countByStatusInAndElectric(statuses, electric);
     }
 
     @Override

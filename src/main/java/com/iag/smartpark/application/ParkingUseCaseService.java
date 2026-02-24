@@ -3,6 +3,7 @@ package com.iag.smartpark.application;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 import com.iag.smartpark.domain.ParkingSession;
@@ -22,6 +23,7 @@ public class ParkingUseCaseService {
 
     private static final int TOTAL_SPOTS = 100;
     private static final int ELECTRIC_SPOTS = 20;
+    private static final List<SessionStatus> ACTIVE_STATUSES = List.of(SessionStatus.ADMITTED, SessionStatus.PARKED);
 
     private final ParkingSpotRepositoryPort spotRepository;
     private final ParkingSessionRepositoryPort sessionRepository;
@@ -34,11 +36,11 @@ public class ParkingUseCaseService {
     }
 
     public boolean registerEntry(String plate, boolean electric) {
-        if (sessionRepository.findByLicensePlateAndStatus(plate, SessionStatus.ADMITTED).isPresent())
+        if (sessionRepository.existsByLicensePlateAndStatusIn(plate, ACTIVE_STATUSES))
             return false;
-        if (sessionRepository.countByStatus(SessionStatus.ADMITTED) >= TOTAL_SPOTS)
+        if (sessionRepository.countByStatusIn(ACTIVE_STATUSES) >= TOTAL_SPOTS)
             return false;
-        if (electric && sessionRepository.countByStatusAndElectric(SessionStatus.ADMITTED, true) >= ELECTRIC_SPOTS)
+        if (electric && sessionRepository.countByStatusInAndElectric(ACTIVE_STATUSES, true) >= ELECTRIC_SPOTS)
             return false;
 
         sessionRepository.save(new ParkingSession(plate, electric, LocalDateTime.now()));
@@ -53,12 +55,13 @@ public class ParkingUseCaseService {
 
         session.close(LocalDateTime.now());
 
-        boolean usedCharger = session.getAssignedSpot() != null && session.getAssignedSpot().isHasCharger();
+        ParkingSpot assignedSpot = session.getAssignedSpot();
+        boolean usedCharger = assignedSpot != null && assignedSpot.isHasCharger();
         session.setTotalCost(parkingRateCalculator.calculate(
                 Duration.between(session.getEntryTime(), session.getExitTime()), usedCharger));
 
-        if (session.getAssignedSpot() != null) {
-            ParkingSpot spot = spotRepository.findById(session.getAssignedSpot().getId()).orElseThrow();
+        if (assignedSpot != null) {
+            ParkingSpot spot = spotRepository.findById(assignedSpot.getId()).orElseThrow();
             spot.free();
             spotRepository.save(spot);
         }

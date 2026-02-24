@@ -40,6 +40,33 @@ class ParkingUseCaseServiceTest {
     }
 
     @Test
+    void shouldRejectEntryIfVehicleAlreadyParked() {
+        service.registerEntry("ABC123", false);
+        service.assignSpot("ABC123");
+        assertThat(service.registerEntry("ABC123", false)).isFalse();
+    }
+
+    @Test
+    void shouldCountParkedVehicleTowardsTotalCapacity() {
+        for (int i = 1; i <= 100; i++) {
+            assertThat(service.registerEntry("CAP" + i, false)).isTrue();
+        }
+        service.assignSpot("CAP1");
+
+        assertThat(service.registerEntry("CAP101", false)).isFalse();
+    }
+
+    @Test
+    void shouldCountParkedVehicleTowardsElectricCapacity() {
+        for (int i = 1; i <= 20; i++) {
+            assertThat(service.registerEntry("ELC" + i, true)).isTrue();
+        }
+        service.assignSpot("ELC1");
+
+        assertThat(service.registerEntry("ELC21", true)).isFalse();
+    }
+
+    @Test
     void shouldCreateSessionOnEntry() {
         service.registerEntry("ABC123", false);
         assertThat(sessionRepository.findByLicensePlateAndStatus("ABC123", SessionStatus.ADMITTED))
