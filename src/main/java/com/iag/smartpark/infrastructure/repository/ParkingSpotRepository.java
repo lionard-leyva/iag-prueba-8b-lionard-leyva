@@ -1,7 +1,9 @@
-package com.iag.smartpark.infrastructure.persistence.repository;
+package com.iag.smartpark.infrastructure.repository;
 
 import com.iag.smartpark.domain.SlotStatus;
-import com.iag.smartpark.infrastructure.persistence.entity.ParkingSpotEntity;
+import com.iag.smartpark.infrastructure.entity.ParkingSpotEntity;
+import jakarta.persistence.LockModeType;
+import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
@@ -13,7 +15,8 @@ public interface ParkingSpotRepository extends JpaRepository<ParkingSpotEntity, 
 
     long countByStatus(SlotStatus status);
 
-    Optional<ParkingSpotEntity> findFirstByStatusAndHasCharger(SlotStatus status, boolean hasCharger);
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    Optional<ParkingSpotEntity> findFirstByStatusAndHasChargerOrderByIdAsc(SlotStatus status, boolean hasCharger);
 
     Optional<ParkingSpotEntity> findFirstByStatus(SlotStatus status);
 

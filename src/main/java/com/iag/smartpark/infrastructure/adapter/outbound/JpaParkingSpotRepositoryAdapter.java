@@ -1,10 +1,10 @@
-package com.iag.smartpark.infrastructure.persistence.adapter;
+package com.iag.smartpark.infrastructure.adapter.outbound;
 
 import com.iag.smartpark.domain.ParkingSpot;
 import com.iag.smartpark.domain.SlotStatus;
 import com.iag.smartpark.domain.port.ParkingSpotRepositoryPort;
-import com.iag.smartpark.infrastructure.persistence.mapper.ParkingSpotMapper;
-import com.iag.smartpark.infrastructure.persistence.repository.ParkingSpotRepository;
+import com.iag.smartpark.infrastructure.mapper.ParkingSpotMapper;
+import com.iag.smartpark.infrastructure.repository.ParkingSpotRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
@@ -23,7 +23,7 @@ public class JpaParkingSpotRepositoryAdapter implements ParkingSpotRepositoryPor
 
     @Override
     public Optional<ParkingSpot> findFirstByStatusAndHasCharger(SlotStatus status, boolean hasCharger) {
-        return spotRepository.findFirstByStatusAndHasCharger(status, hasCharger)
+        return spotRepository.findFirstByStatusAndHasChargerOrderByIdAsc(status, hasCharger)
                 .map(spotMapper::toDomain);
     }
 

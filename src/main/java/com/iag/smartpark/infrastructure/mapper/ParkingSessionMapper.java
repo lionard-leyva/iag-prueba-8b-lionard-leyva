@@ -1,9 +1,9 @@
-package com.iag.smartpark.infrastructure.persistence.mapper;
+package com.iag.smartpark.infrastructure.mapper;
 
 import com.iag.smartpark.domain.ParkingSession;
 import com.iag.smartpark.domain.ParkingSpot;
-import com.iag.smartpark.infrastructure.persistence.entity.ParkingSessionEntity;
-import com.iag.smartpark.infrastructure.persistence.entity.ParkingSpotEntity;
+import com.iag.smartpark.infrastructure.entity.ParkingSessionEntity;
+import com.iag.smartpark.infrastructure.entity.ParkingSpotEntity;
 import org.springframework.stereotype.Component;
 
 @Component

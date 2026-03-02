@@ -1,13 +1,13 @@
-package com.iag.smartpark.infrastructure.persistence.adapter;
+package com.iag.smartpark.infrastructure.adapter.outbound;
 
 import com.iag.smartpark.domain.ParkingSession;
 import com.iag.smartpark.domain.SessionStatus;
 import com.iag.smartpark.domain.port.ParkingSessionRepositoryPort;
-import com.iag.smartpark.infrastructure.persistence.entity.ParkingSessionEntity;
-import com.iag.smartpark.infrastructure.persistence.entity.ParkingSpotEntity;
-import com.iag.smartpark.infrastructure.persistence.mapper.ParkingSessionMapper;
-import com.iag.smartpark.infrastructure.persistence.repository.ParkingSessionRepository;
-import com.iag.smartpark.infrastructure.persistence.repository.ParkingSpotRepository;
+import com.iag.smartpark.infrastructure.entity.ParkingSessionEntity;
+import com.iag.smartpark.infrastructure.entity.ParkingSpotEntity;
+import com.iag.smartpark.infrastructure.mapper.ParkingSessionMapper;
+import com.iag.smartpark.infrastructure.repository.ParkingSessionRepository;
+import com.iag.smartpark.infrastructure.repository.ParkingSpotRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
@@ -32,6 +32,11 @@ public class JpaParkingSessionRepositoryAdapter implements ParkingSessionReposit
     public Optional<ParkingSession> findByLicensePlateAndStatus(String plate, SessionStatus status) {
         return sessionRepository.findByLicensePlateAndStatus(plate, status)
                 .map(sessionMapper::toDomain);
+    }
+
+    @Override
+    public boolean hasActiveSessionForUpdate(String plate, Collection<SessionStatus> statuses) {
+        return sessionRepository.findFirstByLicensePlateAndStatusIn(plate, statuses).isPresent();
     }
 
     @Override

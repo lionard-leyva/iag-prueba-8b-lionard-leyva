@@ -2,10 +2,10 @@ package com.iag.smartpark.application;
 
 import com.iag.smartpark.domain.SessionStatus;
 import com.iag.smartpark.domain.SlotStatus;
-import com.iag.smartpark.infrastructure.persistence.entity.ParkingSessionEntity;
-import com.iag.smartpark.infrastructure.persistence.entity.ParkingSpotEntity;
-import com.iag.smartpark.infrastructure.persistence.repository.ParkingSessionRepository;
-import com.iag.smartpark.infrastructure.persistence.repository.ParkingSpotRepository;
+import com.iag.smartpark.infrastructure.entity.ParkingSessionEntity;
+import com.iag.smartpark.infrastructure.entity.ParkingSpotEntity;
+import com.iag.smartpark.infrastructure.repository.ParkingSessionRepository;
+import com.iag.smartpark.infrastructure.repository.ParkingSpotRepository;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

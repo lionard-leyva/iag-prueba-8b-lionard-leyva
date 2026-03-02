@@ -1,7 +1,7 @@
-package com.iag.smartpark.infrastructure.persistence.init;
+package com.iag.smartpark.infrastructure.init;
 
-import com.iag.smartpark.infrastructure.persistence.entity.ParkingSpotEntity;
-import com.iag.smartpark.infrastructure.persistence.repository.ParkingSpotRepository;
+import com.iag.smartpark.infrastructure.entity.ParkingSpotEntity;
+import com.iag.smartpark.infrastructure.repository.ParkingSpotRepository;
 import org.springframework.stereotype.Component;
 
 import jakarta.annotation.PostConstruct;

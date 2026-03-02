@@ -1,4 +1,4 @@
-package com.iag.smartpark.infrastructure.persistence.entity;
+package com.iag.smartpark.infrastructure.entity;
 
 import com.iag.smartpark.domain.SlotStatus;
 import jakarta.persistence.Entity;

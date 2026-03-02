@@ -36,7 +36,8 @@ public class ParkingUseCaseService {
     }
 
     public boolean registerEntry(String plate, boolean electric) {
-        if (sessionRepository.existsByLicensePlateAndStatusIn(plate, ACTIVE_STATUSES))
+
+        if (sessionRepository.hasActiveSessionForUpdate(plate, ACTIVE_STATUSES))
             return false;
         if (sessionRepository.countByStatusIn(ACTIVE_STATUSES) >= TOTAL_SPOTS)
             return false;

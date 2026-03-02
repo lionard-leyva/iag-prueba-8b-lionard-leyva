@@ -1,4 +1,4 @@
-package com.iag.smartpark.infrastructure.persistence.adapter;
+package com.iag.smartpark.infrastructure.adapter.indound;
 
 import com.iag.smartpark.application.ParkingUseCaseService;
 import com.iag.smartpark.domain.ParkingSession;

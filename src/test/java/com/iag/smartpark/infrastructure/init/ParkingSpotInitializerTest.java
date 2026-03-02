@@ -1,8 +1,8 @@
-package com.iag.smartpark.infrastructure.persistence.init;
+package com.iag.smartpark.infrastructure.init;
 
 
 import com.iag.smartpark.domain.SlotStatus;
-import com.iag.smartpark.infrastructure.persistence.repository.ParkingSpotRepository;
+import com.iag.smartpark.infrastructure.repository.ParkingSpotRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

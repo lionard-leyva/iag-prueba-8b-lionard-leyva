@@ -8,6 +8,7 @@ import java.util.Optional;
 
 public interface ParkingSessionRepositoryPort {
     Optional<ParkingSession> findByLicensePlateAndStatus(String plate, SessionStatus status);
+    boolean hasActiveSessionForUpdate(String plate, Collection<SessionStatus> statuses);
     boolean existsByLicensePlateAndStatusIn(String plate, Collection<SessionStatus> statuses);
     long countByStatusIn(Collection<SessionStatus> statuses);
     long countByStatusInAndElectric(Collection<SessionStatus> statuses, boolean electric);

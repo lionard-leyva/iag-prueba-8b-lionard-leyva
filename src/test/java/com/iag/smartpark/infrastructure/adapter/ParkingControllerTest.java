@@ -1,10 +1,10 @@
-package com.iag.smartpark.infrastructure.persistence.adapter;
+package com.iag.smartpark.infrastructure.adapter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.iag.smartpark.domain.SessionStatus;
-import com.iag.smartpark.infrastructure.persistence.entity.ParkingSessionEntity;
-import com.iag.smartpark.infrastructure.persistence.repository.ParkingSessionRepository;
-import com.iag.smartpark.infrastructure.persistence.repository.ParkingSpotRepository;
+import com.iag.smartpark.infrastructure.entity.ParkingSessionEntity;
+import com.iag.smartpark.infrastructure.repository.ParkingSessionRepository;
+import com.iag.smartpark.infrastructure.repository.ParkingSpotRepository;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
